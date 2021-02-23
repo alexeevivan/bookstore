@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Esse Book Store</title>
+
+<!-- Bootstrap core CSS -->
+    <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+    <link href="../../static/css/business-casual.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+        <span class="site-heading-upper text-primary mb-3">Made by <a href="https://github.com/alexeevivan" target="_blank" style="color: #FF9D45FF"> Ivan Alexeev</a> for <a href="https://it-academy.by" target="_blank" style="color: #36A5DCFF">IT-Academy</a> as a project</span>
+        <span>
+            <a href="{% url 'base' %}">
+                <img src="../../static/img/logo.png" style="width: 30%; height: 30%; margin-top: 2%">
+            </a>
+        </span>
+    </h1>
+
+<!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Esse Book Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'base' %}">Main
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'library' %}">Library</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'pricing' %}">Pricing</a>
+                    </li>
+                </ul>
+                <form class="form-inline" action="/action_page.php">
+                    <input class="form-control mr-sm-1" type="text" placeholder="Keyword, author or ISBN ...">
+                    <a href="#" class="btn btn-outline-light" type="button, submit">Search</a>
+                </form>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cart' %}">
+                            <button class="btn btn-outline-light" style="width:150%; border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                <span>Cart</span>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-section clearfix">
+        <div class="container">
+            <div class="intro">
+                <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="../../static/img/covered.jpg" alt="">
+                <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">® Esse</span>
+                        <span class="section-heading-lower">Worth cooperation</span>
+                    </h2>
+                    <p class="mb-3">Each book presented in our catalog comes in a handmade paper package, which can also be designed according to your wishes.
+                        After all, reading a book begins with getting to know its cover, and we protect it flawlessly!
+                    </p>
+                    <div class="intro-button mx-auto">
+                        <a class="btn btn-primary btn-xl" href="https://yandex.by/maps/157/minsk/?ll=27.521090%2C53.864895&mode=routes&rtext=~53.902284%2C27.561831&rtt=auto&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fll%3D27.562%252C53.902%26spn%3D0.706%252C0.178%26text%3D%25D0%2591%25D0%25B5%25D0%25BB%25D0%25B0%25D1%2580%25D1%2583%25D1%2581%25D1%258C%252C%2520%25D0%259C%25D1%2596%25D0%25BD%25D1%2581%25D0%25BA&z=11">Visit Us Today!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <div class="cta-inner text-center rounded">
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-upper">Our Promise</span>
+                            <span class="section-heading-lower">To You</span>
+                        </h2>
+                        <p class="mb-0">When you walk into our shop to start your day, we are dedicated to providing you with friendly service, a welcoming atmosphere, and excellent books. If you are not satisfied, please let us know and we will do whatever we can to make things right!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer text-faded text-center py-5">
+        <div class="container">
+            <p class="m-0 small">Copyright &copy; Esse Book Store 2021</p>
+        </div>
+    </footer>
+
+<!-- Bootstrap core JavaScript -->
+    <script src="../../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
