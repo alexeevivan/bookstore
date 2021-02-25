@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import test_view, ProductDetailView, CategoryDetailView, CartView
+from .views import test_view, ProductDetailView, CategoryDetailView, CartView, info_about, info_pricing, info_library, info_books_list
 
 # include base.html as a instrument to render the main.html file
 urlpatterns = [
