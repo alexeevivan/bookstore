@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Esse Book Store</title>
+
+<!-- Bootstrap core CSS -->
+    <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+    <link href="../../static/css/business-casual.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+        <span class="site-heading-upper text-primary mb-3">Made by <a href="https://github.com/alexeevivan" target="_blank" style="color: #FF9D45FF"> Ivan Alexeev</a> for <a href="https://it-academy.by" target="_blank" style="color: #36A5DCFF">IT-Academy</a> as a project</span>
+        <span><img src="../../static/img/logo.png" style="width: 30%; height: 30%; margin-top: 2%"></span>
+    </h1>
+
+<!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Esse Book Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'base' %}">Main</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item active px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'library' %}">Library</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'pricing' %}">Pricing</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline" action="/action_page.php">
+                    <input class="form-control mr-md-1" type="text" placeholder="Keyword, author or ISBN ..." style="width: 70%;">
+                    <a href="#" class="btn btn-outline-light" type="button, submit">Search</a>
+                </form>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="#">
+                            <button class="btn btn-outline-light" style="width:150%; border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                <span>Cart</span>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="col-lg-18">
+        <div class="container">
+            {% block content %}
+            <div class="col-md-18" style="margin-top: 2%; margin-left: auto; margin-right: auto">
+                <div class="row">
+                    {%  for product in products %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="{{ product.get_absolute_url }}"><img class="card-img-top" src="{{ product.image.url }}" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="{{ product.get_absolute_url }}" style="color:antiquewhite; text-decoration:none !important">{{ product.title }}</a>
+                                </h4>
+                                <h5 style="color:rgba(255, 157, 69);">{{ product.price }} USD</h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endblock content %}
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer text-faded text-center py-5">
+        <div class="container">
+            <p class="m-0 small">Copyright &copy; Esse Book Store 2021</p>
+        </div>
+    </footer>
+<!-- Bootstrap core JavaScript -->
+    <script src="../../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
