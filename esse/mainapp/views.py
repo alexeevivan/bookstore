@@ -33,6 +33,41 @@ def info_books_list(request):
     )
     return render(request, 'books_list.html', {'categories': categories, 'products': products})
 
+def info_biography(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
+    products = LatestProducts.objects.get_products_for_main_page(
+        'biography'
+    )
+    return render(request, 'biography.html', {'categories': categories, 'products': products})
+
+def info_economics(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
+    products = LatestProducts.objects.get_products_for_main_page(
+        'economics'
+    )
+    return render(request, 'economics.html', {'categories': categories, 'products': products})
+
+def info_history(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
+    products = LatestProducts.objects.get_products_for_main_page(
+        'history'
+    )
+    return render(request, 'history.html', {'categories': categories, 'products': products})
+
+def info_medicine(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
+    products = LatestProducts.objects.get_products_for_main_page(
+        'medicine'
+    )
+    return render(request, 'medicine.html', {'categories': categories, 'products': products})
+
+def info_novel(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
+    products = LatestProducts.objects.get_products_for_main_page(
+        'novel'
+    )
+    return render(request, 'novel.html', {'categories': categories, 'products': products})
+
 # building a scheme, thats can help to show the url-address of each product
 class ProductDetailView(CategoryDetailMixin, DetailView):
 
