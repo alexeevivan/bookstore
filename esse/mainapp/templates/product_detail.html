@@ -73,13 +73,13 @@
     <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
         <ol class="breadcrumb" style="background-color:rgba(62,37,29,0.3); margin-bottom: 3%; padding-bottom: 1rem; padding-top: 1rem;">
             <li class="breadcrumb-item" style="margin-left: 3%">
-                <button type="button" class="btn btn-outline-secondary">
+                <button type="button" class="btn btn-outline-secondary" style="box-shadow: 0 0 0 0.15rem rgb(255 157 69 / 25%)">
                     <a href="{% url 'base' %}" style="color:antiquewhite; text-decoration:none !important">Main</a>
                 </button>
             </li>
             <li class="breadcrumb-item">
-                <button type="button" class="btn btn-outline-secondary">
-                    <a href="{{ product.category.get_absolute_url }}" style="color:antiquewhite; text-decoration:none !important">{{ product.category.name }}</a>
+                <button type="button" class="btn btn-outline-secondary" style="box-shadow: 0 0 0 0.15rem rgb(255 157 69 / 25%)">
+                    <a style="color:antiquewhite; text-decoration:none !important">{{ product.category.name }}</a>
                 </button>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
