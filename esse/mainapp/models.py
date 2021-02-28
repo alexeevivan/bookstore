@@ -5,7 +5,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
-from django.utils.functional import LazyObject
 from django.utils import timezone
 
 
@@ -168,7 +167,7 @@ class Cart(models.Model):
     owner = models.ForeignKey('Customer', verbose_name='Owner', on_delete=CASCADE)
     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
     total_products = models.PositiveIntegerField(default=0)
-    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Total cost')
+    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Total cost', blank=False, default=0)
     in_order = models.BooleanField(default=False)
     for_anonymous_user = models.BooleanField(default=False)
 
