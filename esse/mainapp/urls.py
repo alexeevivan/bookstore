@@ -16,6 +16,6 @@ urlpatterns = [
     path('library/history', views.info_history, name='history'),
     path('library/medicine', views.info_medicine, name='medicine'),
     path('library/novel', views.info_novel, name='novel'),
-    path('cart/', CartView.as_view(), name='cart')
+    path('cart', CartView.as_view(), name='cart')
 ]
 
