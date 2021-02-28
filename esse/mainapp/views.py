@@ -85,8 +85,6 @@ class ProductDetailView(CategoryDetailMixin, DetailView):
         self.queryset = self.model._base_manager.all()
         return super().dispatch(request, *args, **kwargs)
 
-    # model = Model
-    # queryset = Model.objects.all()
     context_object_name = 'product'
     template_name = 'product_detail.html'
     slug_url_kwarg = 'slug'
@@ -111,14 +109,14 @@ class CategoryDetailView(CartMixin, CategoryDetailMixin, DetailView):
         return context
 
 
-class CartView(View):
+class CartView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(user=request.user)
         cart = Cart.objects.get(owner=customer)
         categories = Category.objects.get_categories_for_left_sidebar()
         context = {
-            'cart': cart,
+            'cart': self.cart,
             'categories': categories
         }
         return render (request, 'cart.html', context)
