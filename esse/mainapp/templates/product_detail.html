@@ -100,6 +100,10 @@
             <p>{{ product.price }} USD</p>
             <strong>Synopses</strong>
             <p>{{ product.description}}</p>
+            <hr>
+            <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}">
+                <button class="btn btn-outline-light" style="border-color:rgb(255, 255, 255); color:#D99E54FF; box-shadow: 2px -2px 5px 1px rgba(255, 255, 255)">Add to cart</button>
+            </a>
         </div>
     </div>
 
