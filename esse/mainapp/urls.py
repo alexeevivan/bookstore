@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import test_view, ProductDetailView, CategoryDetailView, CartView, info_about, info_pricing, info_library, info_books_list, info_biography
+from .views import test_view, ProductDetailView, CategoryDetailView, CartView, AddToCartView,info_about, info_pricing, info_library, info_books_list, info_biography
 
 # include base.html as a instrument to render the main.html file
 urlpatterns = [
@@ -16,6 +16,7 @@ urlpatterns = [
     path('library/history', views.info_history, name='history'),
     path('library/medicine', views.info_medicine, name='medicine'),
     path('library/novel', views.info_novel, name='novel'),
-    path('cart', CartView.as_view(), name='cart')
+    path('cart/', CartView.as_view(), name='cart'),
+    path('add_to_cart/<str:ct_model>/<str:slug>/', AddToCartView.as_view(), name='add_to_cart')
 ]
 
