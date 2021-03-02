@@ -116,7 +116,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255, verbose_name='Book Title')
     # slugfield тоже должен быть, и будет он уникальным также
     slug = models.SlugField(unique=True)
-    image = models.ImageField()
+    image = models.ImageField(verbose_name='Image')
     # описание книги. null = True означает, что есть возможность не предоставлять описание книги
     description = models.TextField(verbose_name='Annotation', null = True)
     # max_digits показывает макс. кол-во цифр в стоимости продукта, а decimal_places - кол-во цифр после запятой
@@ -164,25 +164,82 @@ class CartProduct(models.Model):
     
 class Cart(models.Model):
 
-    owner = models.ForeignKey('Customer', verbose_name='Owner', on_delete=CASCADE)
+    owner = models.ForeignKey('Customer', null=True, verbose_name='Owner', on_delete=CASCADE)
     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
     total_products = models.PositiveIntegerField(default=0)
-    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Total cost', blank=False, default=0)
+    final_price = models.DecimalField(max_digits=9, default=0, decimal_places=2, verbose_name='Total cost')
     in_order = models.BooleanField(default=False)
     for_anonymous_user = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id)
 
+    def save(self, *args, **kwargs):
+        cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
+        if cart_data.get('final_price__sum'):
+            self.final_price = cart_data['final_price__sum']
+        else:
+            self.final_price = 0
+        self.total_products = cart_data['id__count']
+        super().save(*args, **kwargs)
+
 
 class Customer(models.Model):
 
     user = models.ForeignKey(User, verbose_name='User', on_delete=CASCADE)
-    phone = models.CharField(max_length=20, verbose_name='Phone number')
-    address = models.CharField(max_length=255, verbose_name='Address')
+    phone = models.CharField(max_length=20, verbose_name='Phone number', null=True, blank=True)
+    address = models.CharField(max_length=255, verbose_name='Address', null=True, blank=True)
+    orders = models.ManyToManyField('Order', verbose_name='Customer orders', related_name='related_customer')
 
     def __str__(self):
         return "Customer: {} {}".format(self.user.first_name, self.user.last_name)
+
+
+class Order(models.Model):
+
+    STATUS_NEW = 'new'
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_READY = 'is_ready'
+    STATUS_COMPLETED = 'completed'
+
+    PURCHASE_TYPE_SELF = 'self'
+    PURCHASE_TYPE_DELIVERY = 'delivery'
+
+    STATUS_CHOICES = (
+        (STATUS_NEW, 'New order'),
+        (STATUS_IN_PROGRESS, 'Order in progress'),
+        (STATUS_READY, 'Order is ready'),
+        (STATUS_COMPLETED, 'Order is completed')
+    )
+
+    PURCHASE_TYPE_CHOICES = (
+        (PURCHASE_TYPE_SELF, 'Self-pickup'),
+        (PURCHASE_TYPE_DELIVERY, 'Delivery')
+    )
+
+    customer = models.ForeignKey(Customer, verbose_name='Customer', related_name='related_orders', on_delete=CASCADE)
+    first_name = models.CharField(max_length=255, verbose_name='First name')
+    last_name = models.CharField(max_length=255, verbose_name='Last name')
+    phone = models.CharField(max_length=20, verbose_name='Phone number')
+    address = models.CharField(max_length=1024, verbose_name='Address', null=True, blank=True)
+    status = models.CharField(
+        max_length=100, 
+        verbose_name='Order status', 
+        choices=STATUS_CHOICES, 
+        default=STATUS_NEW
+    )
+    purchase_type = models.CharField(
+        max_length=100, 
+        verbose_name='Purchase type',
+        choices=PURCHASE_TYPE_CHOICES,
+        default=PURCHASE_TYPE_SELF
+    )
+    comment = models.TextField(verbose_name='Comment form', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Order creating date')
+    order_date = models.DateField(verbose_name='Order processing date', default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Biography(Product):
@@ -201,6 +258,7 @@ class Biography(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
+    
 
 
 class Economics(Product):
@@ -220,6 +278,7 @@ class Economics(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
+    
 
 
 class History(Product):
