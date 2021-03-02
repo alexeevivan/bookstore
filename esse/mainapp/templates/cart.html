@@ -1,5 +1,4 @@
 {% load static %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,7 +74,26 @@
             </div>
         </div>
     </nav>
-    <h3 class="text-center mt-5 mb-5">Your Cart {% if not cart.product.count %}is empty{% endif %}</h3>
+    
+    <section class="bbb">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 mx-auto">
+                    <div class="bbb-inner text-center rounded-1">
+                        <span style="color:antiquewhite; text-transform: uppercase;">Your Cart {% if not cart.products.count %}is empty{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-left: 10%; margin-right: 10%;">
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% if cart.products.count %}
     <table class="table table-borderless">
         <thead>
             <tr>
@@ -84,6 +102,7 @@
                 <th scope="col">Product Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total Cost</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -92,12 +111,38 @@
                 <th scope="row">{{ item.content_object.title }}</th>
                 <td class="w-25"><img src="{{ item.content_object.image.url }}" class="img-fluid" style="width: 15%;"></td>
                 <td>{{ item.content_object.price }} USD</td>
-                <td>{{ item.quantity }}</td>
+                <td>
+                    <form action="{% url 'change_quantity' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="POST">
+                        {% csrf_token %}
+                        <input type="number" class="form-control" name="quantity" style="width: 86px;" min="1" value="{{ item.quantity }}">
+                        <br>
+                        <input type="submit" class="btn btn-outline-change" style="border-color: rgba(255, 156, 69, 0); color:antiquewhite;" value="Change">
+                    </form>
+                </td>
                 <td>{{ item.final_price }} USD</td>
+                <td>
+                    <a href="{% url 'remove_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}"><button class="btn btn-outline-remove" style="border-color: rgba(255, 156, 69, 0);">Remove</button></a>
+                </td>
             </tr>
             {% endfor %}
+            <tr>
+                <td colspan="2"></td>
+                <td>Total:</td>
+                <td>{{ cart.total_products }}</td>
+                <td>
+                    <strong>{{ cart.final_price }} USD</strong>
+                </td>
+                <td>
+                    <a href="{% url 'confirmation' %}">
+                    <button class="btn btn-outline-confirm">
+                        Confirm
+                    </button>
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
+    {% endif %}
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
