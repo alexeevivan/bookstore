@@ -10,22 +10,17 @@ from .mixins import CategoryDetailMixin, CartMixin
 from .forms import OrderForm
 
 
-
 def test_view(request):
     return render(request, 'base.html', {})
-
 
 def info_about(request):
     return render(request,'about.html', {})
 
-
 def info_pricing(request):
     return render(request, 'pricing.html', {})
 
-
 def info_library(request):
     return render(request, 'library.html', {})
-
 
 def info_books_list(request):
     categories = Category.objects.get_categories_for_left_sidebar()
