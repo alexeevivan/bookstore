@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,8 +76,98 @@
         </div>
     </nav>
 
+    <section class="bbb">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 mx-auto">
+                    <div class="bbb-inner text-center rounded-1">
+                        <span style="color:antiquewhite; text-transform: uppercase;">Order confirmation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container-fluid">
+        <hr>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Name of Product</th>
+                    <th scope="col">Product Image</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.products.all %}
+                <tr>
+                    <th scope="row">{{ item.content_object.title }}</th>
+                    <td class="w-25"><img src="{{ item.content_object.image.url }}" class="img-fluid" style="width: 15%;"></td>
+                    <td>{{ item.content_object.price }} USD</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.final_price }} USD</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total:</td>
+                    <td>{{ cart.total_products }}</td>
+                    <td>
+                        <strong>{{ cart.final_price }} USD</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    
+    <hr>
+    <section class="bbb">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 mx-auto">
+                    <div class="bbb-inner text-center rounded-1">
+                        <span style="color:antiquewhite; text-transform: uppercase;">Order Form</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col">
+                    {{ form.first_name|as_crispy_field }}
+                </div>
+                <div class="form-group col">
+                    {{ form.last_name|as_crispy_field }}
+                </div>
+            </div>
+            {{ form.address|as_crispy_field }}
+            <hr>
+            <div class="row">
+                <div class="form-group col">
+                    {{ form.phone|as_crispy_field }}
+                </div>
+                <div class="form-group col">
+                    {{ form.purchase_type|as_crispy_field }}
+                </div>
+                <div class="form-group col">
+                    {{ form.order_date|as_crispy_field }}
+                </div>
+            </div>
+            <hr>
+            {{ form.comment|as_crispy_field }}
+            <button type="submit" class="btn btn-primary">
+                Submit
+            </button>
+            <hr>
+        </form>
+    </div>
+
+
     <footer class="footer text-faded text-center py-5">
         <div class="container">
             <p class="m-0 small">Copyright &copy; Esse Book Store 2021</p>
