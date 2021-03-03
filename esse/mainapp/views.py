@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db import reset_queries
 from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
@@ -8,6 +9,7 @@ from django.http import HttpResponseRedirect
 from .models import Biography, Economics, History, Medicine, Novel, Category, LatestProducts, Customer, Cart, CartProduct
 from .mixins import CategoryDetailMixin, CartMixin
 from .forms import OrderForm
+from .utils import recalc_cart
 
 
 def test_view(request):
@@ -116,7 +118,8 @@ class AddToCartView(CartMixin, View):
         )
         if created:
             self.cart.products.add(cart_product)
-        self.cart.save()
+        #self.cart.save()
+        recalc_cart(self.cart)
         messages.add_message(request, messages.INFO, "Product added successfully")
         return HttpResponseRedirect('/cart/')
 
@@ -132,7 +135,7 @@ class RemoveFromCartView(CartMixin, View):
         )
         self.cart.products.remove(cart_product)
         cart_product.delete()
-        self.cart.save()
+        recalc_cart(self.cart)
         messages.add_message(request, messages.INFO, "Product removed successfully")
         return HttpResponseRedirect('/cart/')
 
@@ -149,7 +152,7 @@ class ChangeQuantityView(CartMixin, View):
         quantity = int(request.POST.get('quantity'))
         cart_product.quantity = quantity
         cart_product.save()
-        self.cart.save()
+        recalc_cart(self.cart)
         messages.add_message(request, messages.INFO, "Quantity changed successfully")
         return HttpResponseRedirect('/cart')
 
@@ -176,3 +179,30 @@ class ConfirmationView(CartMixin, View):
             'form': form
         }
         return render (request, 'confirmation.html', context)
+
+
+class MakeOrderView(CartMixin, View):
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        form = OrderForm(request.POST or None)
+        customer = Customer.objects.get(user=request.user)
+        if form.is_valid():
+            new_order = form.save(commit=False)
+            new_order.customer = customer
+            new_order.first_name = form.cleaned_data['first_name']
+            new_order.last_name = form.cleaned_data['last_name']
+            new_order.phone = form.cleaned_data['phone']
+            new_order.address = form.cleaned_data['address']
+            new_order.purchase_type = form.cleaned_data['purchase_type']
+            new_order.order_date = form.cleaned_data['order_date']
+            new_order.comment = form.cleaned_data['comment']
+            new_order.save()
+            self.cart.in_order = True
+            self.cart.save()
+            new_order.cart = self.cart
+            new_order.save()
+            customer.orders.add(new_order)
+            messages.add_message(request, messages.INFO, 'Thanks for order! Our Manager will call you in 10 minutes approximately.')
+            return HttpResponseRedirect('/')
+        return HttpResponseRedirect('confirmation')
