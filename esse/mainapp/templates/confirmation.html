@@ -122,11 +122,11 @@
     </div>
 
     <hr>
-    <section class="bbb">
+    <section class="bbb" style="padding-top: 1rem; padding-bottom: 1rem; background-color: rgba(47, 23, 15, 0.8);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-5 mx-auto">
-                    <div class="bbb-inner text-center rounded-1">
+                    <div class="bbb-inner text-center rounded-1" style="position: relative; padding: .5rem; margin: .5rem; border-top-left-radius: 1rem; border-bottom-right-radius: 1rem; background-color: rgb(69, 46, 38, 0.8);">
                         <span style="color:antiquewhite; text-transform: uppercase;">Order Form</span>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                 </div>
             </div>
             {{ form.address|as_crispy_field }}
-            <hr>
+        <hr>
             <div class="row">
                 <div class="form-group col">
                     {{ form.phone|as_crispy_field }}
@@ -158,12 +158,12 @@
                     {{ form.order_date|as_crispy_field }}
                 </div>
             </div>
-            <hr>
+        <hr>
             {{ form.comment|as_crispy_field }}
             <button type="submit" class="btn btn-primary">
                 Submit
             </button>
-            <hr>
+        <hr>
         </form>
     </div>
 
