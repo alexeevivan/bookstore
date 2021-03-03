@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Biography, Economics, History, Medicine, Novel, Category, LatestProducts, Customer, Cart, CartProduct
 from .mixins import CategoryDetailMixin, CartMixin
+from .forms import OrderForm
 
 
 
@@ -173,8 +174,10 @@ class ConfirmationView(CartMixin, View):
     
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_left_sidebar()
+        form = OrderForm(request.POST or None)
         context = {
             'cart': self.cart,
-            'categories': categories
+            'categories': categories,
+            'form': form
         }
         return render (request, 'confirmation.html', context)
