@@ -135,9 +135,9 @@
     </section>
     <div class="container">
         <hr>
-        <form method="post">
+        <form action="{% url 'make_order' %}" method="POST">
             {% csrf_token %}
-            <div class="row">
+            <div class="row mb-3">
                 <div class="form-group col">
                     {{ form.first_name|as_crispy_field }}
                 </div>
@@ -146,8 +146,7 @@
                 </div>
             </div>
             {{ form.address|as_crispy_field }}
-        <hr>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="form-group col">
                     {{ form.phone|as_crispy_field }}
                 </div>
@@ -158,12 +157,8 @@
                     {{ form.order_date|as_crispy_field }}
                 </div>
             </div>
-        <hr>
             {{ form.comment|as_crispy_field }}
-            <button type="submit" class="btn btn-primary">
-                Submit
-            </button>
-        <hr>
+            <input type="submit" class="btn btn-primary btn-block mb-3" values="Submit">
         </form>
     </div>
 
