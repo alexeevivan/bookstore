@@ -8,8 +8,10 @@ from django.utils.safestring import mark_safe
 
 from .models import *
 
+
 # create a restriction on uploading too small images through the admin form
 # (that is, if you upload images through the admin panel)
+
 class AnyProductAdminForm(ModelForm):
     
     def __init__(self, *args, **kwargs):
