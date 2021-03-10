@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Esse Book Store</title>
+    <title>
+        Esse Book Store
+    </title>
 
 <!-- Bootstrap core CSS -->
     <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,42 +38,86 @@
 
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Esse Book Store</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'base' %}">Main
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'about' %}">About</a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'library' %}">Library</a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'pricing' %}">Pricing</a>
-                    </li>
-                </ul>
-                <form class="form-inline" action="/action_page.php">
-                    <input class="form-control mr-sm-1" type="text" placeholder="Keyword, author or ISBN ...">
-                    <a href="#" class="btn btn-outline-light" type="button, submit">Search</a>
-                </form>
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cart' %}">
-                            <button class="btn btn-outline-light" style="width:150%; border-color:rgba(217, 158, 84); color:#D99E54FF;">
-                                <span>Cart</span>
+        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'base' %}">
+            Esse Book Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item active px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'base' %}">
+                        Main
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'about' %}">
+                        About
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'library' %}">
+                        Library
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'pricing' %}">
+                        Pricing
+                    </a>
+                </li>
+                <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" type="search" placeholder="Keyword, author or ISBN ..." aria-label="Search">
+                <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase text-expanded" href="#">
+                            <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                <span>
+                                    Search
+                                </span>
                             </button>
                         </a>
                     </li>
                 </ul>
-            </div>
+                {% if not request.user.is_authenticated %}
+                    <li class="nav-item px-lg-4 mb-auto mt-auto">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            LOGIN
+                        </a>
+                    </li>
+                    <li class="nav-item px-lg-4 mb-auto mt-auto">
+                        <a class="nav-link" href="{% url 'registration' %}">
+                            NEW TO ESSE?
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item" style="marker: none;">
+                    {% if request.user.is_authenticated %}
+                        <li class="navbar text text-light">
+                            <a class="nav-link text-uppercase text-expanded" href="#">
+                                {{ request.user.username }}
+                            </a>
+                        </li>
+                        <li class="nav-item px-lg-4 mb-auto mt-auto">
+                            <a class="nav-link text-uppercase text-expanded" href="{% url 'logout' %}">
+                                <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                    Log Out
+                                </button>
+                            </a>
+                        </li>
+                    {% endif %}
+                </li>
+                <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cart' %}">
+                            <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                <span>
+                                    Cart
+                                </span>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </ul>
         </div>
     </nav>
 
@@ -92,7 +138,8 @@
                         <span class="section-heading-upper">® Esse</span>
                         <span class="section-heading-lower">Worth cooperation</span>
                     </h2>
-                    <p class="mb-3">Each book presented in our catalog comes in a handmade paper package, which can also be designed according to your wishes.
+                    <p class="mb-3">
+                        Each book presented in our catalog comes in a handmade paper package, which can also be designed according to your wishes.
                         After all, reading a book begins with getting to know its cover, and we protect it flawlessly!
                     </p>
                     <div class="intro-button mx-auto">
@@ -109,10 +156,16 @@
                 <div class="col-xl-9 mx-auto">
                     <div class="cta-inner text-center rounded" style="color: rgb(151, 75, 25);">
                         <h2 class="section-heading mb-4">
-                            <span class="section-heading-upper">Our Promise</span>
-                            <span class="section-heading-lower">To You</span>
+                            <span class="section-heading-upper">
+                                Our Promise
+                            </span>
+                            <span class="section-heading-lower">
+                                To You
+                            </span>
                         </h2>
-                        <p class="mb-0">When you walk into our shop to start your day, we are dedicated to providing you with friendly service, a welcoming atmosphere, and excellent books. If you are not satisfied, please let us know and we will do whatever we can to make things right!</p>
+                        <p class="mb-0">
+                            When you walk into our shop to start your day, we are dedicated to providing you with friendly service, a welcoming atmosphere, and excellent books. If you are not satisfied, please let us know and we will do whatever we can to make things right!
+                        </p>
                     </div>
                 </div>
             </div>
@@ -121,7 +174,9 @@
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Esse Book Store 2021</p>
+            <p class="m-0 small">
+                Copyright &copy; Esse Book Store 2021
+            </p>
         </div>
     </footer>
 
