@@ -24,6 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'dipcjv)ta-jwkxiithympl!(6*0ffe^x57=m09*usj#b)_p(**'
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LdqvHgaAAAAACUSh8cuYNpFMjYZwvt0OSFPAuaU'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -40,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainapp',
-    'crispy_forms'
+    'crispy_forms',
+    'captcha'
 ]
 
 MIDDLEWARE = [
