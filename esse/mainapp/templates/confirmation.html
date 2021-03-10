@@ -10,7 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Esse Book Store</title>
+    <title>
+        Esse Book Store
+    </title>
 
 <!-- Bootstrap core CSS -->
     <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,42 +39,86 @@
 
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Esse Book Store</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'base' %}">Main
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'about' %}">About</a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'library' %}">Library</a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'pricing' %}">Pricing</a>
-                    </li>
-                </ul>
-                <form class="form-inline" action="/action_page.php">
-                    <input class="form-control mr-sm-1" type="text" placeholder="Keyword, author or ISBN ...">
-                    <a href="#" class="btn btn-outline-light" type="button, submit">Search</a>
-                </form>
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cart' %}">
-                            <button class="btn btn-outline-light" style="width:150%; border-color:rgba(217, 158, 84); color:#D99E54FF;">
-                                <span>Cart</span>
+        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'base' %}">
+            Esse Book Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'base' %}">
+                        Main
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'about' %}">
+                        About
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'library' %}">
+                        Library
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4 mb-auto mt-auto">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'pricing' %}">
+                        Pricing
+                    </a>
+                </li>
+                <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" type="search" placeholder="Keyword, author or ISBN ..." aria-label="Search">
+                <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase text-expanded" href="#">
+                            <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                <span>
+                                    Search
+                                </span>
                             </button>
                         </a>
                     </li>
                 </ul>
-            </div>
+                {% if not request.user.is_authenticated %}
+                    <li class="nav-item px-lg-4 mb-auto mt-auto">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            LOGIN
+                        </a>
+                    </li>
+                    <li class="nav-item px-lg-4 mb-auto mt-auto">
+                        <a class="nav-link" href="{% url 'registration' %}">
+                            NEW TO ESSE?
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item" style="marker: none;">
+                    {% if request.user.is_authenticated %}
+                        <li class="navbar text text-light">
+                            <a class="nav-link text-uppercase text-expanded" href="#">
+                                {{ request.user.username }}
+                            </a>
+                        </li>
+                        <li class="nav-item px-lg-4 mb-auto mt-auto">
+                            <a class="nav-link text-uppercase text-expanded" href="{% url 'logout' %}">
+                                <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                    Log Out
+                                </button>
+                            </a>
+                        </li>
+                    {% endif %}
+                </li>
+                <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cart' %}">
+                            <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                <span>
+                                    Cart
+                                </span>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </ul>
         </div>
     </nav>
 
@@ -81,29 +127,31 @@
             <div class="row">
                 <div class="col-xl-5 mx-auto">
                     <div class="bbb-inner text-center rounded-1">
-                        <span style="color:antiquewhite; text-transform: uppercase;">Order confirmation</span>
+                        <span style="color:antiquewhite; text-transform: uppercase;">
+                            Order confirmation
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <div class="container-fluid">
+    <div class="container">
         <hr>
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th scope="col">Name of Product</th>
-                    <th scope="col">Product Image</th>
-                    <th scope="col">Product Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Total Cost</th>
+                    <th></th>
+                    <th></th>
+                    <th>Price per unit</th>
+                    <th>Quantity</th>
+                    <th>Total Cost</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in cart.products.all %}
                 <tr>
                     <th scope="row">{{ item.content_object.title }}</th>
-                    <td class="w-25"><img src="{{ item.content_object.image.url }}" class="img-fluid" style="width: 15%;"></td>
+                    <td class="w-25"><img src="{{ item.content_object.image.url }}" style="width: 50%;"></td>
                     <td>{{ item.content_object.price }} USD</td>
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.final_price }} USD</td>
@@ -113,7 +161,7 @@
                     <td colspan="2"></td>
                     <td>Total:</td>
                     <td>{{ cart.total_products }}</td>
-                    <td>
+                    <td style="color:#FB9B44;">
                         <strong>{{ cart.final_price }} USD</strong>
                     </td>
                 </tr>
@@ -127,7 +175,9 @@
             <div class="row">
                 <div class="col-xl-5 mx-auto">
                     <div class="bbb-inner text-center rounded-1" style="position: relative; padding: .5rem; margin: .5rem; border-top-left-radius: 1rem; border-bottom-right-radius: 1rem; background-color: rgb(69, 46, 38, 0.8);">
-                        <span style="color:antiquewhite; text-transform: uppercase;">Order Form</span>
+                        <span style="color:antiquewhite; text-transform: uppercase;">
+                            Order Form
+                        </span>
                     </div>
                 </div>
             </div>
@@ -158,14 +208,16 @@
                 </div>
             </div>
             {{ form.comment|as_crispy_field }}
-            <input type="submit" class="btn btn-primary btn-block mb-3" values="Submit">
+            <input type="submit" class="btn btn-primary btn-block mb-3">
         </form>
     </div>
 
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Esse Book Store 2021</p>
+            <p class="m-0 small">
+                Copyright &copy; Esse Book Store 2021
+            </p>
         </div>
     </footer>
 
