@@ -1,10 +1,12 @@
 from django.urls import path
+from django.contrib.auth.views import LogoutView
 from . import views
 from .views import (
     test_view, 
     ProductDetailView, CategoryDetailView, 
     CartView, AddToCartView, RemoveFromCartView, ChangeQuantityView, ConfirmationView,
     MakeOrderView,
+    LoginView, RegistrationView,
     info_about, info_pricing, info_library, info_books_list, 
     info_biography
 )
@@ -28,6 +30,8 @@ urlpatterns = [
     path('remove_from_cart/<str:ct_model>/<str:slug>/', RemoveFromCartView.as_view(), name='remove_from_cart'),
     path('change_quantity/<str:ct_model>/<str:slug>/', ChangeQuantityView.as_view(), name='change_quantity'),
     path('confirmation/', ConfirmationView.as_view(), name='confirmation'),
-    path('make_order/', MakeOrderView.as_view(), name='make_order')
+    path('make_order/', MakeOrderView.as_view(), name='make_order'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(next_page="/"), name='logout'),
+    path('registration/', RegistrationView.as_view(), name='registration')
 ]
-
