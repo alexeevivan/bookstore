@@ -50,7 +50,7 @@ class RegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Nickname'
+        self.fields['username'].label = 'Username'
         self.fields['password'].label = 'Password'
         self.fields['confirm_password'].label = 'Confirm the password'
         self.fields['phone'].label = 'Phone number'
