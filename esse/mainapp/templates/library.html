@@ -24,11 +24,11 @@
     <link href="../../static/css/business-casual.css" rel="stylesheet">
 
 </head>
-
+    <link rel="shortcut icon" href="../../static/img/favicon.png" type="image/png">
 <body>
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper text-primary mb-3">Made by <a href="https://github.com/alexeevivan" target="_blank" style="color: #FF9D45FF"> Ivan Alexeev</a> for <a href="https://it-academy.by" target="_blank" style="color: #36A5DCFF">IT-Academy</a> as a project</span>
+        <span class="site-heading-upper text-primary mb-3">Made by <a href="https://github.com/alexeevivan" target="_blank" style="color: #FF9D45FF"> Ivan Alexeev</a> for <a href="https://it-academy.by" target="_blank" style="color: #36A5DCFF">IT-Academy</a> by way of <div style="margin-top: 10px;"><span class="typing"></span></div></span>
         <span>
             <a href="{% url 'base' %}">
                 <img src="../../static/img/logo.png" style="width: 30%; height: 30%; margin-top: 2%">
@@ -93,7 +93,7 @@
                 <li class="nav-item" style="marker: none;">
                     {% if request.user.is_authenticated %}
                         <li class="navbar text text-light">
-                            <a class="nav-link text-uppercase text-expanded" href="#">
+                            <a class="nav-link text-uppercase text-expanded" href="{% url 'profile' %}">
                                 {{ request.user.username }}
                             </a>
                         </li>
@@ -204,7 +204,7 @@
                     <div class="bg-faded p-5 d-flex mr-auto rounded">
                         <a href="{% url 'economics' %}" style="color: black; text-decoration:none !important">
                             <h2 class="section-heading mb-0">
-                                <span class="section-heading-upper">Delicious Treats, Good Eats</span>
+                                <span class="section-heading-upper">Try to figure it out</span>
                                 <span class="section-heading-lower">Economics</span>
                             </h2>
                         </a>
@@ -277,7 +277,7 @@
                     <div class="bg-faded p-5 d-flex mr-auto rounded">
                         <a href="{% url 'medicine' %}" style="color: black; text-decoration:none !important">
                             <h2 class="section-heading mb-0">
-                                <span class="section-heading-upper">Delicious Treats, Good Eats</span>
+                                <span class="section-heading-upper">Great works</span>
                                 <span class="section-heading-lower">Medicine</span>
                             </h2>
                         </a>
@@ -315,7 +315,7 @@
                     <div class="bg-faded p-5 d-flex mr-auto rounded">
                         <a href="{% url 'novel' %}" style="color: black; text-decoration:none !important">
                             <h2 class="section-heading mb-0">
-                                <span class="section-heading-upper">Delicious Treats, Good Eats</span>
+                                <span class="section-heading-upper">Relax n' enjoy</span>
                                 <span class="section-heading-lower">Novel</span>
                             </h2>
                         </a>
@@ -361,6 +361,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!-- Custom script for this template -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="../../static/js/script.js"></script>
 </body>
 
 </html>
