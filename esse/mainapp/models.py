@@ -87,11 +87,11 @@ class CategoryManager(models.Manager):
 class Category(models.Model):
     
     name = models.CharField(max_length=255, verbose_name='Name of category')
-    # URL will display the place to go after selecting the main category (Books / Novels)
+    # URL will display the place where to go after selecting the main category (Library / Novels)
     slug = models.SlugField(unique=True)
-    # как представить категории в админке (просто по названию категории)
+    # 
     objects = CategoryManager()
-
+    # how to show categories in admin panel (by the name)
     def __str__(self):
         return self.name
 
@@ -106,19 +106,20 @@ class Product(models.Model):
     # 3145728 = 3 MB
     MAX_IMAGE_SIZE = 3145728
 
+
     class Meta:
         abstract=True
     
-    # категория, к которой принадлежит товар (книга)
+    # the category, that product belongs to (book)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.CASCADE)
-    # название продукта
+    # the name of prosuct
     title = models.CharField(max_length=255, verbose_name='Book Title')
-    # slugfield тоже должен быть, и будет он уникальным также
+    # slugfield have to be unique
     slug = models.SlugField(unique=True)
     image = models.ImageField(verbose_name='Image')
-    # описание книги. null = True означает, что есть возможность не предоставлять описание книги
+    # book description. «null = True» means, that we have an opportunity to leave empty description field
     description = models.TextField(verbose_name='Annotation', null = True)
-    # max_digits показывает макс. кол-во цифр в стоимости продукта, а decimal_places - кол-во цифр после запятой
+    # max_digits shows max. qty of numerals in product price, and decimal_places - qty of numerals after comma
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Price')
 
     def __str__(self):
@@ -165,6 +166,7 @@ class Cart(models.Model):
 
     owner = models.ForeignKey('Customer', null=True, verbose_name='Owner', on_delete=CASCADE)
     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
+    # total_products will show qty of unique products (as an example: 3 same books will show just 1 main product, not 3 separated books)
     total_products = models.PositiveIntegerField(default=0)
     final_price = models.DecimalField(max_digits=9, default=0, decimal_places=2, verbose_name='Total cost')
     in_order = models.BooleanField(default=False)
