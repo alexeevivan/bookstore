@@ -24,11 +24,11 @@
     <link href="../../static/css/business-casual.css" rel="stylesheet">
 
 </head>
-
+    <link rel="shortcut icon" href="../../static/img/favicon.png" type="image/png">
 <body>
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper text-primary mb-3">Made by <a href="https://github.com/alexeevivan" target="_blank" style="color: #FF9D45FF"> Ivan Alexeev</a> for <a href="https://it-academy.by" target="_blank" style="color: #36A5DCFF">IT-Academy</a> as a project</span>
+        <span class="site-heading-upper text-primary mb-3">Made by <a href="https://github.com/alexeevivan" target="_blank" style="color: #FF9D45FF"> Ivan Alexeev</a> for <a href="https://it-academy.by" target="_blank" style="color: #36A5DCFF">IT-Academy</a> by way of <div style="margin-top: 10px;"><span class="typing"></span></div></span>
         <span>
             <a href="{% url 'base' %}">
                 <img src="../../static/img/logo.png" style="width: 30%; height: 30%; margin-top: 2%">
@@ -41,7 +41,7 @@
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'base' %}">
             Esse Book Store
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -66,7 +66,7 @@
                         Pricing
                     </a>
                 </li>
-                <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" type="search" placeholder="Keyword, author or ISBN ..." aria-label="Search">
+                <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" type="search" placeholder="Keyword, author or ISBN ..." aria-label="Search" name="search">
                 <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
                     <li class="nav-item">
                         <a class="nav-link text-uppercase text-expanded" href="#">
@@ -93,7 +93,7 @@
                 <li class="nav-item" style="marker: none;">
                     {% if request.user.is_authenticated %}
                         <li class="navbar text text-light">
-                            <a class="nav-link text-uppercase text-expanded" href="#">
+                            <a class="nav-link text-uppercase text-expanded" href="{% url 'profile' %}">
                                 {{ request.user.username }}
                             </a>
                         </li>
@@ -123,7 +123,7 @@
 
     {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-left: 10%; margin-right: 10%;">
+        <div class="alert text-center">
             <strong>{{ message }}</strong>
         </div>
         {% endfor %}
@@ -183,6 +183,10 @@
 <!-- Bootstrap core JavaScript -->
     <script src="../../static/vendor/jquery/jquery.min.js"></script>
     <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom script for this template -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="../../static/js/script.js"></script>
 
 </body>
 
