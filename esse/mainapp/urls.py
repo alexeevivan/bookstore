@@ -3,10 +3,10 @@ from django.contrib.auth.views import LogoutView
 from . import views
 from .views import (
     test_view, 
-    ProductDetailView, CategoryDetailView, 
+    ProductDetailView, CategoryDetailView,
     CartView, AddToCartView, RemoveFromCartView, ChangeQuantityView, ConfirmationView,
     MakeOrderView,
-    LoginView, RegistrationView,
+    LoginView, RegistrationView, ProfileView,
     info_about, info_pricing, info_library, info_books_list, 
     info_biography
 )
@@ -33,5 +33,6 @@ urlpatterns = [
     path('make_order/', MakeOrderView.as_view(), name='make_order'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(next_page="/"), name='logout'),
-    path('registration/', RegistrationView.as_view(), name='registration')
+    path('registration/', RegistrationView.as_view(), name='registration'),
+    path('profile/', ProfileView.as_view(), name='profile')
 ]
