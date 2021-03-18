@@ -1,5 +1,5 @@
 DJANGO-project in the way of book store hosted on PythonAnyWhere.com
-<<www.esse.pythonanywhere.com>>
+<<http://esse.pythonanywhere.com/>>
  
 ![Main](https://user-images.githubusercontent.com/75997562/111557381-9b4c0d80-879d-11eb-9f74-ca5f2a7c924f.jpg)
 ![Book_info](https://user-images.githubusercontent.com/75997562/111557394-a141ee80-879d-11eb-937d-9dcb32676813.jpg)
