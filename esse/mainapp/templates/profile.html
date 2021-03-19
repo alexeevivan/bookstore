@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 
 <head>
 
@@ -125,7 +125,7 @@
                             {{ request.user.username }}'s
                         </span>
                         <span>
-                            orders
+                            order summary
                         </span>
                     </div>
                 </div>
@@ -134,33 +134,96 @@
     </section>
     {% if not orders.count %}
         <div class="col-md-12 text-center" style="margin-top: 5%; margin-bottom: 5%;">
-            <h3 style="font-weight:200;">You have no orders yet</h3>
+            <h3 style="font-weight:200;">
+                You have no orders yet
+            </h3>
         </div>
     {% else %}
-    <div class="col-md-12" style="margin-top: 250px; margin-bottom: 250px;">
+    <div class="col-md-12" style="margin-top: 7%; margin-bottom: 7%;">
         <table class="table">
-            <thead>
+            <thead class="text-center">
                 <th scope="col">Order ID</th>
                 <th scope="col">Status</th>
                 <th scope="col">Cost</th>
+                <th scope="col">Name of book</th>
                 <th scope="col">Quantity</th>
                 <th scope="col"></th>
             </thead>
             <tbody>
                 {% for order in orders %}
                     <tr>
-                        <th scope="row">{{ order.id }}</th>
-                        <td>{{ order.get_status_display }}</td>
-                        <td>{{ order.cart.final_price }} USD</td>
-                        <td>
+                        <th scope="row" class="text-center">{{ order.id }}</th>
+                        <td class="text-center">{{ order.get_status_display }}</td>
+                        <td class="text-center">{{ order.cart.final_price }} USD</td>
+                        <td class="text-center">
+                            {% for item in order.cart.products.all %}
+                                {{ item.content_object.title }}
+                            {% endfor %}
+                        </td>
+                        <td class="text-center">
                             {% for item in order.cart.products.all %}
                                 {{ item.quantity }}
                             {% endfor %}
                         </td>
                     <td>
-                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ order.id }}">
                             Info
                         </button>
+                        <div class="modal" id="myModal-{{ order.id }}">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">
+                                            Order details
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="text-center">
+                                            Product
+                                        </h4>
+                                        <table class="table text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Cost</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in order.products.all %}
+                                                    <tr>
+                                                        <th scope="row">{{ order.cart.content_object.title }}</th>
+                                                        <td class="w-25"><img src="{{ item.image.url }}" class="img-fluid"></td>
+                                                        <td><strong>{{ item.content_object.price }}</strong> USD</td>
+                                                        <td>{{ item.quantity }}</td>
+                                                        <td>{{ item.final_price }} USD</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                    <tr>
+                                                        <td colspan="2"></td>
+                                                        <td>Total:</td>
+                                                        <td>{{ order.cart.total_products }}</td>
+                                                        <td><strong>{{ order.cart.final_price }}</strong>USD</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                        <hr>
+                                        <h4 class="text-center">Additional info</h4>
+                                        <p>First name: <strong>{{ order.first_name }}</strong></p>
+                                        <p>Last name: <strong>{{ order.last_name }}</strong></p>
+                                        <p>Phone number: <strong>{{ order.phone }}</strong></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     </tr>
                 {% endfor %}
