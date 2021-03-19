@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 
 <head>
 
@@ -46,7 +46,6 @@
                         {% csrf_token %}
                         {{ form|crispy}}
                         <hr>
-                        <div class="g-recaptcha" data-sitekey="6LdqvHgaAAAAACUSh8cuYNpFMjYZwvt0OSFPAuaU" style="padding: 5%; margin-left: 16%;"></div>
                         <a class="button"><input type="submit" class="button" value="LOG IN"></a>
                     </form>
                 </div>
