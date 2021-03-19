@@ -24,7 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'dipcjv)ta-jwkxiithympl!(6*0ffe^x57=m09*usj#b)_p(**'
 
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LdqvHgaAAAAACUSh8cuYNpFMjYZwvt0OSFPAuaU'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,3 +135,8 @@ STATICFILES_DIRS = (
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+CAPTCHA_FONT_SIZE = 30
+CAPTCHA_LENGTH = 5
+CAPTCHA_BACKGROUND_COLOR = '#E8F0FE'
+CAPTCHA_FOREGROUND_COLOR = '#AD4A79'
