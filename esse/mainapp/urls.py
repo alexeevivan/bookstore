@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 from . import views
 from .views import (
@@ -34,5 +34,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(next_page="/"), name='logout'),
     path('registration/', RegistrationView.as_view(), name='registration'),
-    path('profile/', ProfileView.as_view(), name='profile')
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('captcha/', include('captcha.urls'))
 ]
