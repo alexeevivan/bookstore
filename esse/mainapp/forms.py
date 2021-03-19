@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from captcha.fields import CaptchaField
 
 from .models import Order
 
@@ -19,6 +20,7 @@ class OrderForm(forms.ModelForm):
 class LoginForm(forms.ModelForm):
 
     password = forms.CharField(widget=forms.PasswordInput)
+    captcha = CaptchaField()
 
     def __int__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
