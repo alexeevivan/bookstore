@@ -40,7 +40,7 @@
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'base' %}">
             Esse Book Store
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -65,18 +65,20 @@
                         Pricing
                     </a>
                 </li>
-                <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" type="search" placeholder="Keyword, author or ISBN ..." aria-label="Search">
-                <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase text-expanded" href="#">
-                            <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
-                                <span>
-                                    Search
-                                </span>
-                            </button>
-                        </a>
-                    </li>
-                </ul>
+                <form class="navbar-nav px-lg-4 mb-auto mt-auto" action="{% url 'search_results' %}" method="get">
+                    <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" placeholder="Keyword, author or ISBN ..." aria-label="Search" name="q">
+                    <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-expanded">
+                                <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                    <span>
+                                        Search
+                                    </span>
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </form>
                 {% if not request.user.is_authenticated %}
                     <li class="nav-item px-lg-4 mb-auto mt-auto">
                         <a class="nav-link" href="{% url 'login' %}">
