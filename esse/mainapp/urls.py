@@ -5,9 +5,9 @@ from .views import (
     test_view, 
     ProductDetailView, CategoryDetailView,
     CartView, AddToCartView, RemoveFromCartView, ChangeQuantityView, ConfirmationView,
-    MakeOrderView,
+    MakeOrderView, SearchResultsView,
     LoginView, RegistrationView, ProfileView,
-    info_about, info_pricing, info_library, info_books_list, 
+    info_about, info_pricing, info_library, info_books_list,
     info_biography
 )
 
@@ -35,5 +35,6 @@ urlpatterns = [
     path('logout', LogoutView.as_view(next_page="/"), name='logout'),
     path('registration/', RegistrationView.as_view(), name='registration'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('captcha/', include('captcha.urls'))
+    path('captcha/', include('captcha.urls')),
+    path('search/', SearchResultsView.as_view(), name='search_results')
 ]
