@@ -66,18 +66,20 @@
                         Pricing
                     </a>
                 </li>
-                <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" type="search" placeholder="Keyword, author or ISBN ..." aria-label="Search">
-                <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase text-expanded" href="#">
-                            <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
-                                <span>
-                                    Search
-                                </span>
-                            </button>
-                        </a>
-                    </li>
-                </ul>
+                <form class="navbar-nav px-lg-4 mb-auto mt-auto" action="{% url 'search_results' %}" method="get">
+                    <input class="form-control px-lg-4 mb-auto mt-auto" style="width: 17em;" placeholder="Keyword, author or ISBN ..." aria-label="Search" name="q">
+                    <ul class="navbar-nav px-lg-4 mb-auto mt-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-expanded">
+                                <button class="btn btn-outline-light" style="border-color:rgba(217, 158, 84); color:#D99E54FF;">
+                                    <span>
+                                        Search
+                                    </span>
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </form>
                 {% if not request.user.is_authenticated %}
                     <li class="nav-item px-lg-4 mb-auto mt-auto">
                         <a class="nav-link" href="{% url 'login' %}">
@@ -133,7 +135,7 @@
         </div>
     </section>
     {% if not orders.count %}
-        <div class="col-md-12 text-center" style="margin-top: 5%; margin-bottom: 5%;">
+        <div class="col-md-12 text-center" style="margin-top: 8%; margin-bottom: 8%;">
             <h3 style="font-weight:200;">
                 You have no orders yet
             </h3>
@@ -169,49 +171,32 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ order.id }}">
                             Info
                         </button>
-                        <div class="modal" id="myModal-{{ order.id }}">
+                        <div class="modal" id="myModal-{{ order.id }}" style="color:#3E271F;">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">
-                                            Order details
-                                        </h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
                                         <h4 class="text-center">
-                                            Product
+                                            Order cost
                                         </h4>
-                                        <table class="table text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Image</th>
-                                                    <th scope="col">Price</th>
-                                                    <th scope="col">Quantity</th>
-                                                    <th scope="col">Cost</th>
-                                                </tr>
-                                            </thead>
+                                        <table class="table text-center" style="color:#FF9D45;">
                                             <tbody>
-                                                {% for item in order.products.all %}
-                                                    <tr>
-                                                        <th scope="row">{{ order.cart.content_object.title }}</th>
-                                                        <td class="w-25"><img src="{{ item.image.url }}" class="img-fluid"></td>
-                                                        <td><strong>{{ item.content_object.price }}</strong> USD</td>
-                                                        <td>{{ item.quantity }}</td>
-                                                        <td>{{ item.final_price }} USD</td>
-                                                    </tr>
-                                                {% endfor %}
-                                                    <tr>
-                                                        <td colspan="2"></td>
-                                                        <td>Total:</td>
-                                                        <td>{{ order.cart.total_products }}</td>
-                                                        <td><strong>{{ order.cart.final_price }}</strong>USD</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>
+                                                            {{ order.cart.final_price }}
+                                                        </strong>
+                                                        USD
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                         <hr>
-                                        <h4 class="text-center">Additional info</h4>
+                                        <h4 class="text-center">
+                                            Additional info
+                                        </h4>
                                         <p>First name: <strong>{{ order.first_name }}</strong></p>
                                         <p>Last name: <strong>{{ order.last_name }}</strong></p>
                                         <p>Phone number: <strong>{{ order.phone }}</strong></p>
