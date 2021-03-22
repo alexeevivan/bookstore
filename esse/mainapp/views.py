@@ -1,17 +1,22 @@
 from django.db import transaction
 from django.db import reset_queries
+from django.db.models import Q
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, View, ListView
 from django.http import HttpResponseRedirect
 
-from .models import Biography, Economics, History, Medicine, Novel, Category, LatestProducts, Customer, Cart, CartProduct, Order
+from itertools import chain
+
+
+from .models import Biography, Economics, History, Medicine, Novel, Category, LatestProducts, Customer, Cart, CartProduct, Order, Product
 from .mixins import CategoryDetailMixin, CartMixin
 from .forms import OrderForm, LoginForm, RegistrationForm
 from .utils import recalc_cart
+
 
 
 def test_view(request):
@@ -32,7 +37,7 @@ def info_books_list(request):
         'biography', 'economics', 'history', 'medicine', 'novel', with_respect_to = 'biography'
     )
     return render(request, 'books_list.html', {'categories': categories, 'products': products})
-
+    
 def info_biography(request):
     categories = Category.objects.get_categories_for_left_sidebar()
     products = LatestProducts.objects.get_products_for_main_page(
@@ -291,3 +296,27 @@ class ProfileView(CartMixin, View):
                 'categories':categories
             }
         )
+
+
+class SearchResultsView(ListView):
+    model = Biography, Economics, History,Medicine, Novel
+    template_name = 'search_results.html'
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list_1 = Biography.objects.filter(
+            Q(title__icontains=query) | Q(ISBN_13__icontains=query) | Q(authorship__icontains=query) | Q(publisher__icontains=query)
+        )
+        object_list_2 = Economics.objects.filter(
+            Q(title__icontains=query) | Q(ISBN_13__icontains=query) | Q(theme__icontains=query) | Q(publisher__icontains=query)
+        )
+        object_list_3 = History.objects.filter(
+            Q(title__icontains=query) | Q(ISBN_13__icontains=query) | Q(period__icontains=query) | Q(publisher__icontains=query)
+        )
+        object_list_4 = Medicine.objects.filter(
+            Q(title__icontains=query) | Q(ISBN_13__icontains=query) | Q(theme__icontains=query) | Q(publisher__icontains=query)
+        )
+        object_list_5 = Novel.objects.filter(
+            Q(title__icontains=query) | Q(ISBN_13__icontains=query) | Q(publisher__icontains=query)
+        )
+        object_list = object_list_1, object_list_2, object_list_3, object_list_4, object_list_5
+        return object_list_1 or object_list_2 or object_list_3 or object_list_4 or object_list_5
