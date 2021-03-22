@@ -1,11 +1,11 @@
 {
-    "title": "Business Casual",
+    "title": "Esse Book-Store",
     "name": "startbootstrap-business-casual",
     "version": "5.0.11",
     "scripts": {
         "start": "node_modules/.bin/gulp watch"
     },
-    "description": "A casual HTML website theme for businesses built with Bootstrap",
+    "description": "Esse Book-Store",
     "keywords": [
         "css",
         "sass",
@@ -18,15 +18,6 @@
     "bugs": {
         "url": "https://github.com/StartBootstrap/startbootstrap-business-casual/issues",
         "email": "feedback@startbootstrap.com"
-    },
-    "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (https://davidmiller.io/)"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/StartBootstrap/startbootstrap-business-casual.git"
     },
     "dependencies": {
         "bootstrap": "4.5.3",
