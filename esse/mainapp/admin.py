@@ -14,6 +14,8 @@ from .models import *
 
 class AnyProductAdminForm(ModelForm):
     
+    list_display = ("title")
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # <span_style> turns the code into HTML and renders it according to the tags that are passed
