@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
+
 from captcha.fields import CaptchaField
 
-from .models import Order
+from .models import Order, Biography, Economics, History, Medicine, Novel
 
 
 class OrderForm(forms.ModelForm):
