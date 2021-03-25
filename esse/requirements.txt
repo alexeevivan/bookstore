@@ -54,7 +54,7 @@ sqlparse==0.4.1
 tabulate==0.8.7
 toml==0.10.2
 Unidecode==1.1.2
-urllib3==1.26.2
+urllib3==1.26.3
 virtualenv==20.4.0
 virtualenv-clone==0.5.4
 virtualenvwrapper-win==1.2.6
